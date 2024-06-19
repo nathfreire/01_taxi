@@ -1,0 +1,28 @@
+class Taximetro()
+    def __init__(self, interruptor,euros_parada)
+        self.interruptor=interruptor
+        self.__encendido=False
+        
+ 
+    def movimiento(self)
+        self.km_total=True
+        self.contador+=1
+        
+    def reinicia(self)
+        self.km_relativo=0
+    def display_data(self)
+        print(f'Característicasnmarca{self.interruptor}km_total{self.km_total}km_rel{self.km_relativo}')
+    def encender(self)
+        self.__encendido=True
+        
+    def apago(self)
+        self.__encendido=False
+    def estado(self)
+        if self.__encendido
+            mensaje+='Estado encendido'
+        else
+            mensale+='Estado Apagado'
+#Un ID propio
+
+class tarifa()
+    def __init__(self,)
