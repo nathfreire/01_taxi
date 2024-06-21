@@ -46,7 +46,11 @@ class Carrera():
         print("Taxi en movimiento.")
 
     def finalizar(self):
-        if self.estado == 2:
+
+            tiempo_transcurrido = (datetime.datetime.now() - self.inicio_tiempo).total_seconds()
+            costo = tiempo_transcurrido * self.precio_parada
+            self.precio_total += costo
+            self.tiempo_acumulado_parado += tiempo_transcurrido
             self.precio_final = (self.tiempo_acumulado_parado*self.precio_parada)+(self.tiempo_acumulado_movimiento*self.precio_movimiento)
             print(F"Has finalizado tu viaje. El coste total es de {self.precio_total}")
         
@@ -55,23 +59,23 @@ class Carrera():
 #Un bucle ??
 #carrera = Carrera(10,1,0)
 #parar=carrera.parada()
-nueva_carrera = Carrera(tiempo=10, ID=1, estado=1)
+nueva_carrera = Carrera(tiempo=0, ID=1, estado=0)
 #arrancar=carrera.movimiento()
 #fin=carrera.finalizar()
 input("Presiona enter para iniciar la carrera: ")
 try:
     while True:
-        command = int(input("Enter '0' to start moving, '1' to stop moving, or '2' to quit: "))
-        if command == 0:
+        command =(input("Introducir\n 'p':PARAR, 'm':Moverse, 'e':Exit")).lower()
+        if command == 'p':
             
             # Crear una instancia de la clase Carrera
               # Por ejemplo, con tiempo 10 segundos, ID 1 (por ejemplo) y estado 1 (en movimiento)
 
             # Llamar al método "parada" en la instancia de la clase Carrera
             nueva_carrera.parada()
-        elif command == 1:
+        elif command == 'm':
             nueva_carrera.movimiento()
-        elif command == 2:
+        elif command == 'e':
             nueva_carrera.finalizar()
             break
 except KeyboardInterrupt:
@@ -79,3 +83,4 @@ except KeyboardInterrupt:
 
 # Print the total fare
 print("Tarifa Total: {:.2f} Euros".format(nueva_carrera.precio_total))
+print('Hola')
