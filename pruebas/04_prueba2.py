@@ -1,6 +1,6 @@
 from datetime import datetime
 import pytz
-
+#print()
 class Tarifa:
     precio_parada = 0.02
     precio_movimiento = 0.05
