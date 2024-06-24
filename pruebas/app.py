@@ -125,28 +125,34 @@ def main():
     st.title("Taxi Meter")
     st.write("Bienvenido al taxi meter")
 
+    if 'carrera' not in st.session_state:
+        st.session_state.carrera = None
+
     carrera_id = st.text_input("Ingrese el ID de la carrera")
     if carrera_id:
-        nueva_carrera = Carrera(ID=int(carrera_id), tarifa=Tarifa())
-        st.write(f"Carrera {carrera_id} creada")
+        if st.session_state.carrera is None:
+            st.session_state.carrera = Carrera(ID=int(carrera_id), tarifa=Tarifa())
+            st.write(f"Carrera {carrera_id} creada")
+        else:
+            st.write(f"Carrera {carrera_id} ya existe")
 
         command = st.selectbox("Seleccione una opción", ["Iniciar carrera", "Parar", "Mover", "Finalizar"])
 
         if command == "Iniciar carrera":
-            nueva_carrera.inicio_tiempo = datetime.now(pytz.timezone('Europe/Madrid'))
-            st.write(f"Carrera iniciada a las {nueva_carrera.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+            st.session_state.carrera.inicio_tiempo = datetime.now(pytz.timezone('Europe/Madrid'))
+            st.write(f"Carrera iniciada a las {st.session_state.carrera.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
 
         elif command == "Parar":
-            nueva_carrera.parada()
-            st.write(f"Costo por parada: {nueva_carrera.precio_total:.2f}€")
+            st.session_state.carrera.parada()
+            st.write(f"Costo por parada: {st.session_state.carrera.precio_total:.2f}€")
 
         elif command == "Mover":
-            nueva_carrera.movimiento()
-            st.write(f"Costo por movimiento: {nueva_carrera.precio_total:.2f}€")
+            st.session_state.carrera.movimiento()
+            st.write(f"Costo por movimiento: {st.session_state.carrera.precio_total:.2f}€")
 
         elif command == "Finalizar":
-            nueva_carrera.finalizar()
-            st.write(f"Total a pagar: {nueva_carrera.precio_total:.2f}€")
+            st.session_state.carrera.finalizar()
+            st.write(f"Total a pagar: {st.session_state.carrera.precio_total:.2f}€")
 
 if __name__ == "__main__":
     main()
