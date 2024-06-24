@@ -1,3 +1,4 @@
+import streamlit as st
 from datetime import datetime
 import pytz
 #print()
@@ -114,3 +115,37 @@ try:
             print("Comando no válido. Inténtalo de nuevo.")
 except KeyboardInterrupt:
     nueva_carrera.finalizar()
+
+
+
+
+# Código de tu aplicación aquí
+
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+
+    carrera_id = st.text_input("Ingrese el ID de la carrera")
+    if carrera_id:
+        nueva_carrera = Carrera(ID=int(carrera_id), tarifa=Tarifa())
+        st.write(f"Carrera {carrera_id} creada")
+
+        while True:
+            command = st.selectbox("Seleccione una opción", ["Iniciar carrera", "Parar", "Mover", "Finalizar"])
+            if command == "Iniciar carrera":
+                nueva_carrera.inicio_tiempo = datetime.now(pytz.timezone('Europe/Madrid'))
+                st.write(f"Carrera iniciada a las {nueva_carrera.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+            elif command == "Parar":
+                nueva_carrera.parada()
+                st.write(f"Costo por parada: {nueva_carrera.precio_total:.2f}€")
+            elif command == "Mover":
+                nueva_carrera.movimiento()
+                st.write(f"Costo por movimiento: {nueva_carrera.precio_total:.2f}€")
+            elif command == "Finalizar":
+                nueva_carrera.finalizar()
+                st.write(f"Total a pagar: {nueva_carrera.precio_total:.2f}€")
+                break
+
+if __name__ == "__main__":
+    main()
+
