@@ -112,4 +112,9 @@ def main():
         elif command == "Finalizar":
             costo = st.session_state.carrera.finalizar()
             st.write(f"Total a pagar: {st.session_state.carrera.precio_total:.2f}€")
-            st.write(f"Carrera finalizada a las {datetime.now(pytz.timezone
+            st.write(f"Carrera finalizada a las {datetime.now(pytz.timezone)}")
+            
+            
+
+if __name__ == "__main__":
+    main()

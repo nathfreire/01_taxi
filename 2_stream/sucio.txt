@@ -1,0 +1,339 @@
+
+""" 
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+    nueva_carrera = Carrera(Carrera.ultima_carrera)
+    
+    # Reemplazamos el input por un botón de Streamlit
+    #while True:
+    if st.button('Iniciar la carrera'):
+        nueva_carrera.tiempo.reiniciar()  #
+        st.write(f"Carrera iniciada a las {nueva_carrera.tiempo.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+            
+    else:
+        st.write("Debes pulsar enter para comenzar la carrera.")
+        
+        
+    # Reemplazamos el bucle while por un bucle de Streamlit
+    while True:
+        if nueva_carrera.estado == 0:
+            command = st.selectbox("Selecciona una opción", ["M", "F", "C"])
+        elif nueva_carrera.estado == 1:
+            command = st.selectbox("Selecciona una opción", ["P", "F", "C"])
+
+        if command == "P":
+            if nueva_carrera.estado == 1:
+                nueva_carrera.parada()
+            else:
+                st.write("El taxi ya está parado. No puedes parar de nuevo.")
+        elif command == "M":
+            if nueva_carrera.estado == 0:
+                nueva_carrera.movimiento()
+            else:
+                st.write("El taxi ya está en movimiento. No puedes mover de nuevo.")
+        elif command == "F":
+            nueva_carrera.finalizar()
+            break
+        elif command == "C":
+            nueva_carrera.cancelacion()
+            break
+        else:
+            st.write("Comando no válido. Inténtalo de nuevo.")
+
+
+
+if __name__ == "__main__":
+    main() ""
+
+
+
+
+
+    
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+
+    nueva_carrera = Carrera(Carrera.ultima_carrera)
+
+    # Creamos un estado para la carrera
+    carrera_iniciada = False
+
+    # Creamos un selectbox para seleccionar la opción
+    option = st.selectbox("Selecciona una opción", ["I", "M", "F", "C", "P"])
+
+    if option == "I":
+        if not carrera_iniciada:
+            nueva_carrera.tiempo.reiniciar()
+            st.write(f"Carrera iniciada a las {nueva_carrera.tiempo.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+            carrera_iniciada = True
+        else:
+            st.write("La carrera ya ha sido iniciada.")
+
+    elif carrera_iniciada:
+        if option == "M":
+            if nueva_carrera.estado == 0:
+                nueva_carrera.movimiento()
+            else:
+                st.write("El taxi ya está en movimiento. No puedes mover de nuevo.")
+        elif option == "P":
+            if nueva_carrera.estado == 1:
+                nueva_carrera.parada()
+            else:
+                st.write("El taxi ya está parado. No puedes parar de nuevo.")
+        elif option == "F":
+            nueva_carrera.finalizar()
+            st.write("Carrera finalizada.")
+            carrera_iniciada = False
+        elif option == "C":
+            nueva_carrera.cancelacion()
+            st.write("Carrera cancelada.")
+            carrera_iniciada = False
+        else:
+            st.write("Comando no válido. Inténtalo de nuevo.")
+
+if __name__ == "__main__":
+    main()
+    
+
+
+
+
+
+
+
+
+////////////////////////////////
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+
+    if "carrera_iniciada" not in st.session_state:
+        st.session_state.carrera_iniciada = False
+        st.session_state.nueva_carrera = Carrera(Carrera.ultima_carrera)
+
+    option = st.selectbox("Selecciona una opción", ["I", "M", "F", "C", "P"])
+
+    if option == "I":
+        if not st.session_state.carrera_iniciada:
+            st.session_state.nueva_carrera.tiempo.reiniciar()
+            st.write(f"Carrera iniciada a las {st.session_state.nueva_carrera.tiempo.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+            st.session_state.carrera_iniciada = True
+        else:
+            st.write("La carrera ya ha sido iniciada.")
+
+    elif st.session_state.carrera_iniciada:
+        if option == "M":
+            if st.session_state.nueva_carrera.estado == 0:
+                st.session_state.nueva_carrera.movimiento()
+            else:
+                st.write("El taxi ya está en movimiento. No puedes mover de nuevo.")
+        elif option == "P":
+            if st.session_state.nueva_carrera.estado == 1:
+                st.session_state.nueva_carrera.parada()
+            else:
+                st.write("El taxi ya está parado. No puedes parar de nuevo.")
+        elif option == "F":
+            st.session_state.nueva_carrera.finalizar()
+            st.write("Carrera finalizada.")
+            st.session_state.carrera_iniciada = False
+        elif option == "C":
+            st.session_state.nueva_carrera.cancelacion()
+            st.write("Carrera cancelada.")
+            st.session_state.carrera_iniciada = False
+        else:
+            st.write("Comando no válido. Inténtalo de nuevo.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
+
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+
+    if "carrera_iniciada" not in st.session_state:
+        st.session_state.carrera_iniciada = False
+        st.session_state.nueva_carrera = Carrera(Carrera.ultima_carrera)
+
+    while True:
+        option = st.selectbox("Selecciona una opción", ["I", "M", "F", "C", "P"],key="selectbox_1")
+        option2 = st.selectbox("Selecciona una opción 2", ["A", "B", "C", "D", "E"], key="selectbox_2")
+
+        if option == "I":
+            if not st.session_state.carrera_iniciada:
+                st.session_state.nueva_carrera.tiempo.reiniciar()
+                st.write(f"Carrera iniciada a las {st.session_state.nueva_carrera.tiempo.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+                st.session_state.carrera_iniciada = True
+            else:
+                st.write("La carrera ya ha sido iniciada.")
+
+        elif st.session_state.carrera_iniciada:
+            if option == "M":
+                if st.session_state.nueva_carrera.estado == 0:
+                    st.session_state.nueva_carrera.movimiento()
+                else:
+                    st.write("El taxi ya está en movimiento. No puedes mover de nuevo.")
+            elif option == "P":
+                if st.session_state.nueva_carrera.estado == 1:
+                    st.session_state.nueva_carrera.parada()
+                else:
+                    st.write("El taxi ya está parado. No puedes parar de nuevo.")
+            elif option == "F":
+                st.session_state.nueva_carrera.finalizar()
+                st.write("Carrera finalizada.")
+                st.session_state.carrera_iniciada = False
+            elif option == "C":
+                st.session_state.nueva_carrera.cancelacion()
+                st.write("Carrera cancelada.")
+                st.session_state.carrera_iniciada = False
+            else:
+                st.write("Comando no válido. Inténtalo de nuevo.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+    
+    
+import streamlit as st
+
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+
+    if "carrera_iniciada" not in st.session_state:
+        st.session_state.carrera_iniciada = False
+        st.session_state.nueva_carrera = Carrera(Carrera.ultima_carrera)
+
+    option = st.selectbox("Selecciona una opción", ["I", "M", "F", "C", "P"], key="selectbox_1")
+    option2 = st.selectbox("Selecciona una opción 2", ["A", "B", "C", "D", "E"], key="selectbox_2")
+    submit_button = st.button("Submit")
+    
+    if submit_button:
+        if option == "I":
+            if not st.session_state.carrera_iniciada:
+                st.session_state.nueva_carrera.tiempo.reiniciar()
+                st.write(f"Carrera iniciada a las {st.session_state.nueva_carrera.tiempo.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+                st.session_state.carrera_iniciada = True
+            else:
+                st.write("La carrera ya ha sido iniciada.")
+
+        elif st.session_state.carrera_iniciada:
+            if option == "M":
+                if st.session_state.nueva_carrera.estado == 0:
+                    st.session_state.nueva_carrera.movimiento()
+                else:
+                    st.write("El taxi ya está en movimiento. No puedes mover de nuevo.")
+            elif option == "P":
+                if st.session_state.nueva_carrera.estado == 1:
+                    st.session_state.nueva_carrera.parada()
+                else:
+                    st.write("El taxi ya está parado. No puedes parar de nuevo.")
+            elif option == "F":
+                st.session_state.nueva_carrera.finalizar()
+                st.write("Carrera finalizada.")
+                st.session_state.carrera_iniciada = False
+            elif option == "C":
+                st.session_state.nueva_carrera.cancelacion()
+                st.write("Carrera cancelada.")
+                st.session_state.carrera_iniciada = False
+            else:
+                st.write("Comando no válido. Inténtalo de nuevo.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+////////////////////////////
+import streamlit as st
+
+def main():
+    st.title("Taxi Meter")
+    st.write("Bienvenido al taxi meter")
+
+    if "carrera_iniciada" not in st.session_state:
+        st.session_state.carrera_iniciada = False
+        st.session_state.nueva_carrera = Carrera(Carrera.ultima_carrera)
+        st.session_state.tarifa=Tarifa()
+    option = st.selectbox("Selecciona una opción", ["I", "M", "F", "C", "P"], key="selectbox_1")
+    
+    submit_button = st.button("Submit")
+    
+    if submit_button:
+        
+        if option == "I":
+            if not st.session_state.carrera_iniciada:
+                st.session_state.nueva_carrera.tiempo.reiniciar()
+                st.write(f"Carrera iniciada a las {st.session_state.nueva_carrera.tiempo.inicio_tiempo.strftime('%Y-%m-%d %H:%M:%S')}.")
+                st.session_state.carrera_iniciada = True
+                    # Crear segunda selectbox solo cuando se ha seleccionado "I"
+                option2 = st.selectbox("Selecciona una opción 2", ["M", "F", "C", "P"], key="selectbox_2")
+                submit_button2 = st.button("Submit 2")
+                
+                if submit_button2:
+                    if option2 == "F":
+                        st.session_state.nueva_carrera.finalizar()
+                        st.write("Carrera finalizada.")
+                        st.session_state.tarifa.calcular_costo()
+                        st.write(f"Costo de la carrera: ${st.session_state.tarifa.calcular_costo():.2f}")
+                        st.metric("Precio final", f"${st.session_state.tarifa.calcular_costo():.2f}")  #
+                        st.success(f"Precio final: ${st.session_state.tarifa.calcular_costo():.2f}")  # Agrega este código
+
+                        st.session_state.carrera_iniciada = False
+                    elif option2 == "M":
+                        st.write("Comando no válido. Inténtalo de nuevo.")
+                        #..
+                    elif option2 == "C":
+                        #...
+                        st.write("Comando no válido. Inténtalo de nuevo.")
+                    else:
+                        st.write("Comando no válido. Inténtalo de nuevo.")
+            else:
+                st.write("La carrera ya ha sido iniciada.")
+
+        elif st.session_state.carrera_iniciada:
+            if option == "M":
+                
+                if st.session_state.nueva_carrera.estado == 0:
+                    st.session_state.nueva_carrera.movimiento()
+                else:
+                    st.write("El taxi ya está en movimiento. No puedes mover de nuevo.")
+            elif option == "P":
+                if st.session_state.nueva_carrera.estado == 1:
+                    st.session_state.nueva_carrera.parada()
+                else:
+                    st.write("El taxi ya está parado. No puedes parar de nuevo.")
+            elif option == "F":
+                st.session_state.nueva_carrera.finalizar()
+                st.write("Carrera finalizada.")
+                st.write(f"Costo de la carrera: ${st.session_state.nueva_carrera.precio_total:.2f}")
+                st.metric("Precio final", f"${st.session_state.nueva_carrera.precio_total:.2f}")  #
+                st.success(f"Precio final: ${st.session_state.nueva_carrera.precio_total:.2f}")  # Agrega este código
+
+                st.session_state.carrera_iniciada = False
+            elif option == "C":
+                st.session_state.nueva_carrera.cancelacion()
+                st.write("Carrera cancelada.")
+                st.session_state.carrera_iniciada = False
+            else:
+                st.write("Comando no válido. Inténtalo de nuevo.")
+
+if __name__ == "__main__":
+    main()

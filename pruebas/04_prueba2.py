@@ -46,8 +46,9 @@ class Recorrido:
 
 
 class Carrera:
-    def __init__(self, ID, tarifa):
-        self.ID = ID
+    id=0
+    def __init__(self, tarifa):
+        
         self.tarifa = tarifa
         self.recorrido = Recorrido(datetime.now(pytz.timezone('Europe/Madrid')))
         self.precio_total = 0
@@ -66,16 +67,17 @@ class Carrera:
         self.estado = 1
 
     def finalizar(self):
+        id+=1
         costo = self.recorrido.finalizar(self.tarifa)
         self.precio_total += costo
         print(f"Total a pagar: {self.precio_total:.2f}€")
         fecha_final = datetime.now(pytz.timezone('Europe/Madrid'))
         print(f"Carrera finalizada a las {fecha_final.strftime('%Y-%m-%d %H:%M:%S')}.")
     def __str__(self):
-        return f"Carrera {self.ID} - Total: {self.precio_total:.2f}€"
+        return f"Carrera  - Total: {self.precio_total:.2f}€"
 
 
-nueva_carrera = Carrera(ID=1, tarifa=Tarifa())
+nueva_carrera = Carrera(tarifa=Tarifa())
 print(nueva_carrera)
 
 while True:
@@ -108,6 +110,7 @@ try:
                 print("El taxi ya está en movimiento. No puedes mover de nuevo.")
         
         elif command == "E":
+            
             nueva_carrera.finalizar()
             break
         
