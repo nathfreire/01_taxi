@@ -129,7 +129,7 @@ def main():
                 #Se verifica si la carrera ya ha sido iniciada anteriormente
                 if "carrera_iniciada" not in st.session_state: #Si sucede que NO
                     st.session_state.carrera_iniciada = False #Entonces en el estado de la sesión, se establece carrera_iniciada y se le asigna False
-                    st.session_state.nueva_carrera +=1 #Carrera(Carrera.ultima_carrera)
+                    st.session_state.nueva_carrera=Carrera(Carrera.ultima_carrera)
                     #st.session_state.tarifa = Tarifa()
                     st.session_state.tiempo_inicio=Tiempo()
                     st.session_state.pausa = False
@@ -150,14 +150,14 @@ def main():
                         st.write("Carrera pausada.")
                         #st.session_state.nueva_carrera.tiempo.pausar()
                     
-                    st.write("Presiona el botón 'Iniciar' para reanudar la carrera")
-                    reanudar_button = st.button("ReiIniciar")
+                    #st.write("Presiona el botón 'Iniciar' para reanudar la carrera")
+                    #reanudar_button = st.button("ReiIniciar")
                     
-                    """ 
-                        if reanudar_button:
-                        st.session_state.pausa = False
-                        st.write("Carrera reanudada.")
-                        #st.session_state.nueva_carrera.tiempo.reanudar() """
+                     
+                        #if reanudar_button:
+                        #st.session_state.pausa = False
+                        #st.write("Carrera reanudada.")
+                        #st.session_state.nueva_carrera.tiempo.reanudar()
                     if st.session_state.pausa:
                         st.write("Presiona el botón 'Reanudar' para reanudar la carrera")
                         reanudar_button = st.button("Reanudar")
@@ -180,14 +180,14 @@ def main():
                         costo = tiempo_transcurrido*0.05#st.session_state.tarifa.calcular_costo(tiempo_transcurrido, st.session_state.nueva_carrera.estado, es_nocturno)
                                 
                         st.write(f"Tiempo transcurrido: {st.session_state.tiempo_inicio.tiempo_transcurrido()}")
-                        st.write(f"Costo de la carrera: ${costo:.2f}")
+                        #st.write(f"Costo de la carrera: ${costo:.2f}")
                         st.metric("Precio final", f"${costo:.2f}")  
                         st.success(f"Precio final: ${costo:.2f}")
                         
-                        st.session_state.nueva_carrera.precio_total
+                        #st.session_state.nueva_carrera.precio_total
                         #st.write(f"Costo de la carrera: ${st.session_state.tarifa.calcular_costo()}")
-                        st.metric("Precio final", f"${st.session_state.nueva_carrera.precio_total:.2f}")  #
-                        st.success(f"Precio final: ${tiempo_transcurrido*0.05:.2f}")  # Agrega este código
+                        #st.metric("Precio final", f"${st.session_state.nueva_carrera.precio_total:.2f}")  #
+                        st.success(f"Precio final: ${tiempo_transcurrido*0.05:.2f}")
                         st.session_state.carrera_iniciada = False
         
         else:
